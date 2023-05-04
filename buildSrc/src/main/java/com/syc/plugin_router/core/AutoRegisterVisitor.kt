@@ -28,7 +28,11 @@ class AutoRegisterVisitor(visitor: ClassVisitor) : ClassVisitor(API_VERSION, vis
         exceptions: Array<out String>?
     ): MethodVisitor {
         val mv = cv.visitMethod(access, name, descriptor, signature, exceptions)
-        return RouteMethodVisitor(mv, access, name, descriptor)
+        return if(name == INJECT_ROUTER_INSTALL_METHOD){
+            RouteMethodVisitor(mv, access, name, descriptor)
+        }else{
+            mv
+        }
     }
 
 }

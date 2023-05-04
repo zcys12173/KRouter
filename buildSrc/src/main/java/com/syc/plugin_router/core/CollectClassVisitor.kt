@@ -1,15 +1,8 @@
 package com.syc.plugin_router.core
 
+import com.syc.plugin_router.log.Logger
 import org.objectweb.asm.AnnotationVisitor
 import org.objectweb.asm.ClassVisitor
-
-
-data class PageNode(val className: String, val path: String)
-data class ServiceNode(val className: String, val path: String)
-
-val pageList = mutableListOf<PageNode>()
-val serviceList = mutableListOf<ServiceNode>()
-
 class CollectClassVisitor : ClassVisitor(API_VERSION) {
     private var className: String? = null
     override fun visit(
@@ -20,7 +13,6 @@ class CollectClassVisitor : ClassVisitor(API_VERSION) {
         superName: String?,
         interfaces: Array<out String>?
     ) {
-        println("visit name=$name")
         className = name
     }
 
@@ -32,8 +24,10 @@ class CollectClassVisitor : ClassVisitor(API_VERSION) {
                     return
                 }
                 if (descriptor == "L$INJECT_ROUTER_PAGE_ANNOTATION_CLASS_NAME;") {
+                    Logger.log("register page class:$className; path:$value")
                     pageList.add(PageNode(className!!, value.toString()))
                 } else if (descriptor == "L$INJECT_ROUTER_SERVICE_ANNOTATION_CLASS_NAME;") {
+                    Logger.log("register service class:$className; path:$value")
                     serviceList.add(ServiceNode(className!!, value.toString()))
                 }
 
