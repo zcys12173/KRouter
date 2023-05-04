@@ -5,13 +5,13 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import androidx.annotation.Keep
 import com.syc.router.annotations.RouterPage
 import com.syc.router.annotations.RouterService
 import com.syc.router.log.log
 import com.syc.router.navigator.NavigatorRequest
 import com.syc.router.navigator.interceptor.Interceptor
 import com.syc.router.service.ServiceRequest
-
 object KRouter {
     private val pageInterceptors: MutableList<Interceptor> = mutableListOf()
 
@@ -29,6 +29,7 @@ object KRouter {
     fun install() {
         println("KRouter init")
     }
+
 
     fun registerPage(path: String, className: String) {
         Log.e("registerPage", "path:$path,className:$className")

@@ -5,6 +5,7 @@ import com.android.build.api.transform.QualifiedContent
 import com.android.build.api.transform.Transform
 import com.android.build.api.transform.TransformInvocation
 import com.android.build.gradle.internal.pipeline.TransformManager
+import com.syc.plugin_router.utils.shouldProcessEntry
 import org.apache.commons.io.FileUtils
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassWriter
@@ -76,8 +77,8 @@ class KRouterTransform : Transform() {
                 while (enumeration.hasMoreElements()) {
                     val jarEntry = enumeration.nextElement()
                     val entryName = jarEntry.name
-                    if (entryName.endsWith(".class") && entryName.startsWith("com/syc")) {
-                        if(entryName.endsWith("KRouter.class")){
+                    if (entryName.shouldProcessEntry()) {
+                        if(entryName == GENERATE_TO_CLASS_FILE_NAME){
                             destJarFile= destFile
                         }else{
                             println("----fileInput:$entryName")
@@ -109,7 +110,7 @@ class KRouterTransform : Transform() {
                 val jarEntry = enumeration.nextElement()
                 val entryName = jarEntry.name
                 val inputStream = jarFile.getInputStream(jarEntry)
-                if(entryName.endsWith("KRouter.class")){
+                if(entryName == GENERATE_TO_CLASS_FILE_NAME){
                     val classReader = ClassReader(inputStream)
                     val classWriter = ClassWriter(classReader,ClassWriter.COMPUTE_MAXS)
                     val cv = AutoRegisterVisitor(classWriter)
