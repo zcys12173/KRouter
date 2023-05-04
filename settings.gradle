@@ -1,18 +1,4 @@
-pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-rootProject.name = "KRouter"
 include ':app'
 include ':lib-router'
-include ':plugin-router'
 include ':module-business'
+rootProject.name = "KRouter"

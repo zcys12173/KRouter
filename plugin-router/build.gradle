@@ -1,8 +1,0 @@
-plugins {
-    id 'org.jetbrains.kotlin.jvm'
-}
-
-dependencies {
-    implementation "com.android.tools.build:gradle-api:7.4.0"
-    implementation gradleApi()
-}

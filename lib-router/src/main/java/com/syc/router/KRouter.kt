@@ -1,8 +1,12 @@
 package com.syc.router
 
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import com.syc.router.annotations.RouterPage
+import com.syc.router.annotations.RouterService
 import com.syc.router.log.log
 import com.syc.router.navigator.NavigatorRequest
 import com.syc.router.navigator.interceptor.Interceptor
@@ -35,7 +39,6 @@ object KRouter {
         Log.e("registerPage", "name:$name,className:${service.javaClass.name}")
         serviceMap[name] = service
     }
-
     fun asNavigator(context: Context) = NavigatorBuilder(context)
 
     fun loadService(name: String) = ServiceBuilder(name)
@@ -78,4 +81,6 @@ object KRouter {
             }
         }
     }
+
+
 }

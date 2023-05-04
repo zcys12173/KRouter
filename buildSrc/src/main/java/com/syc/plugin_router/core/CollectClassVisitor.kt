@@ -21,6 +21,7 @@ class CollectClassVisitor : ClassVisitor(ASM_VERSION) {
         superName: String?,
         interfaces: Array<out String>?
     ) {
+        println("visit name=$name")
         className = name
     }
 
