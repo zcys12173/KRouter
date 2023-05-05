@@ -2,12 +2,7 @@ package com.syc.module_bussiness
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.activity.result.ActivityResultRegistry
-import androidx.activity.result.contract.ActivityResultContract
-import androidx.activity.result.contract.ActivityResultContracts.GetContent
-import androidx.core.app.ActivityOptionsCompat
 import com.syc.router.KRouter
 import com.syc.router.annotations.RouterPage
 

@@ -7,5 +7,5 @@ import com.syc.router.annotations.ServiceMethod
 class BusinessService {
 
     @ServiceMethod("getBusinessName")
-    fun getBusinessName(params:Map<String,Any>) = "BusinessService+${params["arg"]}"
+    suspend fun getBusinessName(params:Map<String,Any>) = "BusinessService+${params["arg"]}"
 }

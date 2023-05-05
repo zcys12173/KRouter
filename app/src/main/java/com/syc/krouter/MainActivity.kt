@@ -9,6 +9,9 @@ import android.widget.Button
 import android.widget.Toast
 import com.syc.router.KRouter
 import com.syc.router.annotations.RouterPage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 @RouterPage("path/MainActivity")
@@ -35,9 +38,11 @@ class MainActivity : Activity() {
     }
 
     fun getBusinessName(view: View){
-        val params = mutableMapOf("arg" to "aaaa")
-        val name = KRouter.loadService("BusinessService")
-            .params(params).call<String>("getBusinessName")
-        Toast.makeText(this,name,Toast.LENGTH_SHORT).show()
+        GlobalScope.launch(Dispatchers.Main){
+            val params = mutableMapOf("arg" to "aaaa")
+            val name = KRouter.loadService("BusinessService")
+                .params(params).call<String>("getBusinessName")
+            Toast.makeText(this@MainActivity,name,Toast.LENGTH_SHORT).show()
+        }
     }
 }

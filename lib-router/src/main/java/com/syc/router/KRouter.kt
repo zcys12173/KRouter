@@ -93,7 +93,7 @@ object KRouter {
         }
     }
 
-    class ServiceBuilder(private val name: String) {
+    class ServiceBuilder(private val name: String){
         private var params: Map<String, Any>? = null
         fun params(params: Map<String, Any>) = this.apply { this.params = params }
         fun <T> call(methodName: String): T? {
@@ -103,11 +103,27 @@ object KRouter {
                     builder.params(this)
                 }
                 val request =  builder.build()
-                return ServiceRequest.Call(request).execute()
+                return ServiceRequest.Call(request).call() as? T
             } ?: kotlin.run {
                 log("未找到服务:$name")
                 return null
             }
         }
+
+        suspend fun <T>callSuspend(methodName: String):T?{
+            serviceMap[name]?.run {
+                val builder = ServiceRequest.Builder(this, methodName)
+                params?.run {
+                    builder.params(this)
+                }
+                val request =  builder.build()
+                return ServiceRequest.Call(request).callSuspend() as? T
+            } ?: kotlin.run {
+                log("未找到服务:$name")
+                return null
+            }
+        }
+
+        fun async(){}
     }
 }
