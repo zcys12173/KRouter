@@ -4,11 +4,11 @@ ext{
 }
 
 task copyToModule(type: Copy) {
-    from ('buildSrc/src'){
+    from ("${project.rootDir.path}/buildSrc"){
         exclude '.gradle'
         exclude 'build'
     }
-    into 'plugin-router'
+    into "${project.rootDir.path}/plugin-router"
 
     doFirst {
         File dir = new File("${project.rootDir.path}/plugin-router")

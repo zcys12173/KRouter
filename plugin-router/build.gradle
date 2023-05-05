@@ -1,8 +1,36 @@
+buildscript {
+    apply from: '../config.gradle'
+}
 plugins {
-    id 'org.jetbrains.kotlin.jvm'
+    id 'org.jetbrains.kotlin.jvm' version "$kotlinVersion"
+    id 'maven-publish'
 }
 
+repositories {
+    google()
+    mavenCentral()
+}
 dependencies {
-    implementation "com.android.tools.build:gradle-api:7.4.0"
+    implementation "com.android.tools.build:gradle-api:$agpVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation 'org.ow2.asm:asm-commons:9.2'
+    implementation "org.javassist:javassist:3.26.0-GA"
     implementation gradleApi()
+}
+
+
+publishing{
+    publications{
+        maven(MavenPublication){
+            groupId 'com.syc.plugin'
+            artifactId 'router'
+            version '1.0.0'
+            from components.java
+        }
+    }
+    repositories{
+        maven{
+            url uri('../repo')
+        }
+    }
 }
