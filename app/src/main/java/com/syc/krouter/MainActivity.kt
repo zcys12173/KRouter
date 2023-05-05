@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import com.syc.router.KRouter
 import com.syc.router.annotations.RouterPage
 
@@ -15,9 +17,7 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         findViewById<Button>(R.id.btn).setOnClickListener {
-            val params = Bundle()
-            params.putString("params","Main")
-            KRouter.asNavigator(this).path("path/SecondActivity").requestCode(1001).bundle(params).navigate()
+            KRouter.asNavigator(this).path("path/SecondActivity").requestCode(1001).withString("params","Main").navigate()
 //            testAsm()
         }
 
@@ -32,5 +32,12 @@ class MainActivity : Activity() {
 
     private fun testAsm(){
         KRouter.install()
+    }
+
+    fun getBusinessName(view: View){
+        val params = mutableMapOf("arg" to "aaaa")
+        val name = KRouter.loadService("BusinessService")
+            .params(params).call<String>("getBusinessName")
+        Toast.makeText(this,name,Toast.LENGTH_SHORT).show()
     }
 }

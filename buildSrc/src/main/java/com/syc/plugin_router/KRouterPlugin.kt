@@ -9,8 +9,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.objectweb.asm.Opcodes
 
-const val ASM_VERSION = Opcodes.ASM9
-
 class KRouterPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         Logger.init(project.logger)

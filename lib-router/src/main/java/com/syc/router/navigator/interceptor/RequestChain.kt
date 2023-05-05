@@ -2,8 +2,6 @@ package com.syc.router.navigator.interceptor
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import com.syc.router.log.log
 import com.syc.router.navigator.NavigatorRequest
 
@@ -12,14 +10,13 @@ interface Interceptor {
 
     fun intercept(chain: Chain)
 
-    class Chain(
-        var request: NavigatorRequest
-    ) {
+    class Chain(private val interceptors:MutableList<Interceptor>) {
         private var curIndex = -1
-
-        fun process() {
+        lateinit var request: NavigatorRequest
+        fun process(request:NavigatorRequest) {
+            this.request = request
             curIndex++
-            request.interceptors.getOrNull(curIndex)?.intercept(this)
+            interceptors.getOrNull(curIndex)?.intercept(this)
         }
     }
 
@@ -32,13 +29,13 @@ interface Interceptor {
                     this@request.params?.run {
                         intent.putExtras(this)
                     }
-                    if(requestCode != -1){
-                        if(this is Activity){
-                            this.startActivityForResult(intent,requestCode)
-                        }else{
+                    if (requestCode != -1) {
+                        if (this is Activity) {
+                            this.startActivityForResult(intent, requestCode)
+                        } else {
                             log("context is not activity, can not use startActivityForResult")
                         }
-                    }else{
+                    } else {
                         startActivity(intent)
                     }
 
