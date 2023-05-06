@@ -6,6 +6,7 @@ import android.os.Parcelable
 import com.syc.router.log.log
 import com.syc.router.navigator.NavigatorRequest
 import com.syc.router.navigator.interceptor.Interceptor
+import com.syc.router.service.ResultCallback
 import com.syc.router.service.ServiceRequest
 import java.io.Serializable
 
@@ -93,37 +94,47 @@ object KRouter {
         }
     }
 
-    class ServiceBuilder(private val name: String){
+    class ServiceBuilder(private val name: String) {
         private var params: Map<String, Any>? = null
-        fun params(params: Map<String, Any>) = this.apply { this.params = params }
-        fun <T> call(methodName: String): T? {
+        fun withParams(params: Map<String, Any>) = this.apply { this.params = params }
+
+        fun call(methodName: String):Any? {
             serviceMap[name]?.run {
                 val builder = ServiceRequest.Builder(this, methodName)
                 params?.run {
                     builder.params(this)
                 }
-                val request =  builder.build()
-                return ServiceRequest.Call(request).call() as? T
+                val request = builder.build()
+                return ServiceRequest.Call(request).call()
+            } ?: throw RuntimeException("未找到服务:$name")
+        }
+
+        fun callAsync(methodName: String, callback: ResultCallback) {
+            serviceMap[name]?.run {
+                val builder = ServiceRequest.Builder(this, methodName)
+                    .withCallback(callback)
+                params?.run {
+                    builder.params(this)
+                }
+                val request = builder.build()
+                ServiceRequest.Call(request).callAsync()
+            } ?: throw RuntimeException("未找到服务:$name")
+        }
+
+        suspend fun callSuspend(methodName: String): Any? {
+            serviceMap[name]?.run {
+                val builder = ServiceRequest.Builder(this, methodName)
+                params?.run {
+                    builder.params(this)
+                }
+                val request = builder.build()
+                return ServiceRequest.Call(request).callSuspend()
             } ?: kotlin.run {
                 log("未找到服务:$name")
                 return null
             }
         }
 
-        suspend fun <T>callSuspend(methodName: String):T?{
-            serviceMap[name]?.run {
-                val builder = ServiceRequest.Builder(this, methodName)
-                params?.run {
-                    builder.params(this)
-                }
-                val request =  builder.build()
-                return ServiceRequest.Call(request).callSuspend() as? T
-            } ?: kotlin.run {
-                log("未找到服务:$name")
-                return null
-            }
-        }
-
-        fun async(){}
+        fun async() {}
     }
 }

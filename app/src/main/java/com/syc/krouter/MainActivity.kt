@@ -21,7 +21,6 @@ class MainActivity : Activity() {
         setContentView(R.layout.activity_main)
         findViewById<Button>(R.id.btn).setOnClickListener {
             KRouter.asNavigator(this).path("path/SecondActivity").requestCode(1001).withString("params","Main").navigate()
-//            testAsm()
         }
 
     }
@@ -33,16 +32,5 @@ class MainActivity : Activity() {
         }
     }
 
-    private fun testAsm(){
-        KRouter.install()
-    }
 
-    fun getBusinessName(view: View){
-        GlobalScope.launch(Dispatchers.Main){
-            val params = mutableMapOf("arg" to "aaaa")
-            val name = KRouter.loadService("BusinessService")
-                .params(params).call<String>("getBusinessName")
-            Toast.makeText(this@MainActivity,name,Toast.LENGTH_SHORT).show()
-        }
-    }
 }
