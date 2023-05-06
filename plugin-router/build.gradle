@@ -3,8 +3,8 @@ buildscript {
 }
 plugins {
     id 'org.jetbrains.kotlin.jvm' version "$kotlinVersion"
-    id 'maven-publish'
 }
+apply from: '../script/publish_plugin.gradle'
 
 repositories {
     google()
@@ -18,19 +18,19 @@ dependencies {
     implementation gradleApi()
 }
 
-
-publishing{
-    publications{
-        maven(MavenPublication){
-            groupId 'com.syc.plugin'
-            artifactId 'router'
-            version '1.0.0'
-            from components.java
-        }
-    }
-    repositories{
-        maven{
-            url uri('../repo')
-        }
-    }
-}
+//
+//publishing{
+//    publications{
+//        maven(MavenPublication){
+//            groupId 'com.syc.plugin'
+//            artifactId 'router'
+//            version '1.0.0'
+//            from components.java
+//        }
+//    }
+//    repositories{
+//        maven{
+//            url uri('../repo')
+//        }
+//    }
+//}

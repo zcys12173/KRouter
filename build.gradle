@@ -2,9 +2,10 @@
 buildscript {
     apply from : 'config.gradle'
 
-//    dependencies {
+    dependencies {
 //        classpath "com.syc.plugin:router:1.0.0"
-//    }
+        classpath "com.gradle.publish:plugin-publish-plugin:1.2.0"
+    }
 }
 plugins {
     id 'com.android.application' version "$agpVersion" apply false
