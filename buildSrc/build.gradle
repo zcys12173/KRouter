@@ -1,4 +1,5 @@
 buildscript {
+    apply from :'../config.gradle'
     repositories {
         google()
         mavenCentral()
@@ -6,11 +7,11 @@ buildscript {
     }
 
     dependencies {
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 }
 plugins{
-    id 'org.jetbrains.kotlin.jvm' version "1.5.10"
+    id 'org.jetbrains.kotlin.jvm' version "$kotlinVersion"
 }
 
 repositories {
@@ -20,7 +21,7 @@ repositories {
 }
 dependencies {
     implementation "com.android.tools.build:gradle:4.2.1"
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.10'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     implementation 'org.ow2.asm:asm-commons:9.2'
     implementation gradleApi()
 }

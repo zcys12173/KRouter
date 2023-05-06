@@ -4,9 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import com.syc.router.KRouter
 import com.syc.router.annotations.RouterPage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 @RouterPage("path/MainActivity")
@@ -15,10 +20,7 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         findViewById<Button>(R.id.btn).setOnClickListener {
-            val params = Bundle()
-            params.putString("params","Main")
-            KRouter.asNavigator(this).path("path/SecondActivity").requestCode(1001).bundle(params).navigate()
-//            testAsm()
+            KRouter.asNavigator(this).path("path/SecondActivity").requestCode(1001).withString("params","Main").navigate()
         }
 
     }
@@ -30,7 +32,5 @@ class MainActivity : Activity() {
         }
     }
 
-    private fun testAsm(){
-        KRouter.install()
-    }
+
 }
