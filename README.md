@@ -6,7 +6,7 @@
 2.注册  
 `KRouter.install()`  
 例：  
-```xml
+```kotlin
 class MyApplication:Application() {  
     override fun onCreate() {  
         super.onCreate()  
@@ -15,13 +15,13 @@ class MyApplication:Application() {
 }  
 ```
 3.注册Activity
-```xml
+```kotlin
 @RouterPage(MAIN_ACTIVITY_PATH)
 class MainActivity : Activity() {...}   
 ```
 4.注册Service
 ServiceMethod标记的函数的入参仅支持下面列举出的几种，支持参数为可空（如果不可空，调用的时候必须传递）
-```xml
+```kotlin
 @RouterService("AppService")
 class AppService {
 
@@ -69,13 +69,13 @@ class AppService {
 ```
 
 5.路由跳转
-```xml
+```kotlin
 //如果传递requestCode的话，会以startActivityForResult方式启动新的activity
 KRouter.asNavigator(this).path(SECOND_ACTIVITY_PATH).requestCode(1001).withString("params","Main").navigate()
 ```
 
 6.Service调用
-```xml
+```kotlin
     //直接调用
     fun callService(view: View){
 //        val result = KRouter.loadService("AppService")
