@@ -1,11 +1,9 @@
 # KRouter
-## 使用文档
-1.引用  
+## 引用 
  TODO
- 
-2.注册  
+## 初始化 
 `KRouter.install()`  
-例：  
+
 ```kotlin
 class MyApplication:Application() {  
     override fun onCreate() {  
@@ -14,12 +12,22 @@ class MyApplication:Application() {
     }  
 }  
 ```
-3.注册Activity
+
+## 页面跳转
+1.注册Activity
 ```kotlin
 @RouterPage(MAIN_ACTIVITY_PATH)
 class MainActivity : Activity() {...}   
 ```
-4.注册Service
+
+2.路由跳转
+```kotlin
+//如果传递requestCode的话，会以startActivityForResult方式启动新的activity
+KRouter.asNavigator(this).path(SECOND_ACTIVITY_PATH).requestCode(1001).withString("params","Main").navigate()
+```
+
+## Service调用
+1.注册Service
 ServiceMethod标记的函数的入参仅支持下面列举出的几种，支持参数为可空（如果不可空，调用的时候必须传递）
 ```kotlin
 @RouterService("AppService")
@@ -68,13 +76,7 @@ class AppService {
 }
 ```
 
-5.路由跳转
-```kotlin
-//如果传递requestCode的话，会以startActivityForResult方式启动新的activity
-KRouter.asNavigator(this).path(SECOND_ACTIVITY_PATH).requestCode(1001).withString("params","Main").navigate()
-```
-
-6.Service调用
+2.Service调用
 ```kotlin
     //直接调用
     fun callService(view: View){
