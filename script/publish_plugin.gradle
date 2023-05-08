@@ -15,7 +15,7 @@ group = 'com.syc.router'
 gradlePlugin {
     plugins {
         routerPlugin {
-            id = 'com.syc.plugin_router'
+            id = 'com.syc.plugin_router.4_2'
             implementationClass = 'com.syc.plugin_router.KRouterPlugin'
             displayName = 'Gradle plugin for KRouter'
             description = 'Gradle plugin for KRouter to auto register page and service'

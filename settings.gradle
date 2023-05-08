@@ -1,4 +1,5 @@
 include ':app'
 include ':lib-router'
 include ':module-business'
+include ':plugin-router'
 rootProject.name = "KRouter"
