@@ -14,13 +14,13 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-@RouterPage("path/MainActivity")
+@RouterPage(MAIN_ACTIVITY_PATH)
 class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         findViewById<Button>(R.id.btn).setOnClickListener {
-            KRouter.asNavigator(this).path("path/SecondActivity").requestCode(1001).withString("params","Main").navigate()
+            KRouter.asNavigator(this).path(SECOND_ACTIVITY_PATH).requestCode(1001).withString("params","Main").navigate()
         }
 
     }

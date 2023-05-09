@@ -14,7 +14,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-@RouterPage("path/SecondActivity")
+@RouterPage(SECOND_ACTIVITY_PATH)
 class SecondActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +22,7 @@ class SecondActivity : Activity() {
         val arg = intent.getStringExtra("params")
         Toast.makeText(this,arg, Toast.LENGTH_SHORT).show()
         findViewById<Button>(R.id.btn).setOnClickListener {
-            KRouter.asNavigator(this).path("path/BusinessActivity").navigate()
+            KRouter.asNavigator(this).path(BUSINESS_ACTIVITY_PATH).navigate()
         }
     }
 
