@@ -1,15 +1,27 @@
-plugins {
-    id 'org.jetbrains.kotlin.jvm' version "1.7.20"
+buildscript {
+    apply from :'../config.gradle'
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
+}
+plugins{
+    id 'org.jetbrains.kotlin.jvm' version "$kotlinVersion"
 }
 
 repositories {
     google()
     mavenCentral()
+//    gradlePluginPortal()
 }
 dependencies {
-    implementation "com.android.tools.build:gradle-api:7.4.0"
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.20'
+    implementation "com.android.tools.build:gradle:4.2.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     implementation 'org.ow2.asm:asm-commons:9.2'
-    implementation "org.javassist:javassist:3.26.0-GA"
     implementation gradleApi()
 }

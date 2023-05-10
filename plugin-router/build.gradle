@@ -1,8 +1,11 @@
-plugins {
-    id 'org.jetbrains.kotlin.jvm'
-}
+apply plugin: 'org.jetbrains.kotlin.jvm'
+apply from :'../config.gradle'
+apply from :'../script/publish_plugin.gradle'
+
 
 dependencies {
-    implementation "com.android.tools.build:gradle-api:7.4.0"
+    implementation "com.android.tools.build:gradle:4.2.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation 'org.ow2.asm:asm-commons:9.2'
     implementation gradleApi()
 }
