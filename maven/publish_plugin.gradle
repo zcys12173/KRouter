@@ -1,0 +1,40 @@
+apply plugin:'java-gradle-plugin'
+apply plugin:'maven-publish'
+apply plugin:'com.gradle.plugin-publish'
+
+pluginBundle {
+    website = 'https://github.com/zcys12173/KRouter/tree/main/plugin-router'
+    vcsUrl = 'https://github.com/zcys12173/KRouter.git'
+    tags = ['router', 'KRouter']
+}
+
+version = '1.0.0-pre'
+group = 'io.github.zcys12173.plugins'
+
+
+gradlePlugin {
+    plugins {
+        routerPlugin {
+            id = 'io.github.zcys12173.plugin_router_4_2'
+            implementationClass = 'com.syc.plugin_router.KRouterPlugin'
+            displayName = 'KRouter Automatic Registration Plugin'
+            description = 'Configure the automatic registration Gradle plugin for the KRouter component library.'
+        }
+    }
+}
+
+
+task prePublishTask(type:Copy) {
+    from '../buildSrc/src/main/java'
+    into '../plugin-router/src/main/java'
+    doFirst {
+        File file = new File("${project.rootDir}/plugin-router/src/main/java")
+        if(file.exists()) {
+            file.delete()
+        }
+    }
+}
+
+afterEvaluate {
+    project.tasks.getByName('compileKotlin').dependsOn prePublishTask
+}
