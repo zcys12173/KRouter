@@ -21,7 +21,7 @@ buildscript {
 apply plugin: "io.github.zcys12173.plugin_router"
 ```  
 
-AGP低版本  
+AGP7.0之前的版本
 
 ```kotlin
 //  project/build.gradle
