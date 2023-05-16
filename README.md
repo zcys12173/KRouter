@@ -2,7 +2,17 @@
 
 ## 引用 
 
-1. 引用KRouter自动注册插件
+#### 引用KRouter自动注册插件  
+
+AGP7.4+  
+
+```kotlin
+plugins {
+  id("io.github.zcys12173.plugin_router") version "1.0.0-beta"
+}
+```
+
+AGP低版本  
 
 ```kotlin
 //  project/build.gradle
@@ -21,7 +31,7 @@ buildscript {
 apply plugin: "io.github.zcys12173.plugin_router_4_2"
 ```
 
-2. 引用KRouter Api库
+#### 引用KRouter Api库
 
 ```gradle
 // project/build.gradle中增加Maven中央仓库  
@@ -47,25 +57,25 @@ class MyApplication:Application() {
 ```
 
 ## 页面跳转
-1. 注册Activity
+#### 注册Activity
 ```kotlin
 @RouterPage(MAIN_ACTIVITY_PATH)
 class MainActivity : Activity() {...}   
 ```
 
-2. 路由跳转
+#### 路由跳转
 ```kotlin
 //如果传递requestCode的话，会以startActivityForResult方式启动新的activity
 KRouter.asNavigator(this).path(SECOND_ACTIVITY_PATH).requestCode(1001).withString("params","Main").navigate()
 ```
 
-3. 参数接收  
+#### 参数接收  
 
 跳转的参数都是通过intent.putExtras方式传递的，目标页面可通过getIntent.getXXExtra("xx")方式接收  
 
 
 ## Service调用
-1. 注册Service  
+#### 注册Service  
 
   ServiceMethod标记的函数的入参仅支持下面列举出的几种，支持参数为可空（如果不可空，调用的时候必须传递） 
 
@@ -118,7 +128,7 @@ class AppService {
 
 
 
-2. Service调用  
+#### Service调用  
 
 ```kotlin
     //直接调用
