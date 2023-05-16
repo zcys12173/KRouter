@@ -59,7 +59,7 @@ class MainActivity : Activity() {...}
 KRouter.asNavigator(this).path(SECOND_ACTIVITY_PATH).requestCode(1001).withString("params","Main").navigate()
 ```
 
-3.参数接收  
+3. 参数接收  
 
 跳转的参数都是通过intent.putExtras方式传递的，目标页面可通过getIntent.getXXExtra("xx")方式接收  
 
