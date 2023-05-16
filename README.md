@@ -1,6 +1,39 @@
 # KRouter
+
 ## 引用 
- TODO
+
+1. 引用KRouter自动注册插件
+
+```kotlin
+//  project/build.gradle
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "io.github.zcys12173.plugins:plugin-router:1.0.0-pre"
+  }
+}
+
+//  app/build.gradle
+apply plugin: "io.github.zcys12173.plugin_router_4_2"
+```
+
+2. 引用KRouter Api库
+
+```gradle
+// project/build.gradle中增加Maven中央仓库  
+
+ repositories { mavenCentral() }  
+ 
+// module/build.gradle增加依赖  
+
+implementation 'io.github.zcys12173:KRouter:1.0.0-pre'  
+
+```
+
 ## 初始化 
 `KRouter.install()`  
 
@@ -14,21 +47,23 @@ class MyApplication:Application() {
 ```
 
 ## 页面跳转
-1.注册Activity
+1. 注册Activity
 ```kotlin
 @RouterPage(MAIN_ACTIVITY_PATH)
 class MainActivity : Activity() {...}   
 ```
 
-2.路由跳转
+2. 路由跳转
 ```kotlin
 //如果传递requestCode的话，会以startActivityForResult方式启动新的activity
 KRouter.asNavigator(this).path(SECOND_ACTIVITY_PATH).requestCode(1001).withString("params","Main").navigate()
 ```
 
 ## Service调用
-1.注册Service
-ServiceMethod标记的函数的入参仅支持下面列举出的几种，支持参数为可空（如果不可空，调用的时候必须传递）
+1. 注册Service  
+
+  ServiceMethod标记的函数的入参仅支持下面列举出的几种，支持参数为可空（如果不可空，调用的时候必须传递） 
+
 ```kotlin
 @RouterService("AppService")
 class AppService {
@@ -76,7 +111,10 @@ class AppService {
 }
 ```
 
-2.Service调用
+
+
+2. Service调用  
+
 ```kotlin
     //直接调用
     fun callService(view: View){
