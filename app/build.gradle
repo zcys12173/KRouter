@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'com.syc.plugin_router'
+    id "io.github.zcys12173.plugin_router" version "1.0.0-beta"
 }
 
 android {

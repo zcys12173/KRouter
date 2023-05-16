@@ -134,7 +134,5 @@ object KRouter {
                 return null
             }
         }
-
-        fun async() {}
     }
 }

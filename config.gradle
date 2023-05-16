@@ -2,22 +2,3 @@ ext{
     agpVersion = "7.4.0"
     kotlinVersion = "1.7.20"
 }
-
-task copyToModule(type: Copy) {
-    from ("${project.rootDir.path}/buildSrc"){
-        exclude '.gradle'
-        exclude 'build'
-    }
-    into "${project.rootDir.path}/plugin-router"
-
-    doFirst {
-        File dir = new File("${project.rootDir.path}/plugin-router")
-        dir.listFiles().each { file ->
-            if(file.isDirectory()){
-                file.deleteDir()
-            }else{
-                file.delete()
-            }
-        }
-    }
-}
