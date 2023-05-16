@@ -1,0 +1,116 @@
+ext["signing.keyId"] = '' //签名的密钥后8位
+ext["signing.password"] = ''  //签名设置的密码
+ext["ossrhUsername"] = ''  //sonatype用户名
+ext["ossrhPassword"] = ''  //sonatype密码
+ext["signing.secretKeyRingFile"] = "${project.rootDir}/maven/secring.gpg" //生成的secring.gpg文件目录
+File propertiesFile = new File(project.rootDir, "local.properties")
+if (propertiesFile.exists()) {
+    Properties properties = new Properties()
+    properties.load(new FileInputStream(propertiesFile))
+    properties.each { name, value ->
+        ext[name] = value
+        println("----$name----${ext[name]}")
+    }
+}
+
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from android.sourceSets.main.java.srcDirs
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+publishing {
+    publications {
+        router(MavenPublication) {
+            // The coordinates of the library, being set from variables that
+            //第 2 处
+            groupId "io.github.zcys12173"
+            artifactId "KRouter"
+            version "1.0.1-pre"
+            artifact "${project.buildDir.path}/outputs/aar/lib-router-release.aar"
+            pom {
+                //第 3 处
+                name = "KRouter"
+                description = 'Kotlin组件化路由、通信组件，支持协程。支持AGP4.2 和AGP7.4' //项目描述
+                // If your project has a dedicated site, use its URL here
+                url = 'https://github.com/zcys12173/KRouter' //项目github链接
+                licenses {
+                    license {
+                        //协议类型，一般默认Apache License2.0的话不用改：
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        //第 4 处
+                        id = 'zcys12173' //你的sonatype用户名
+                        name = 'zcys12173' //你的sonatype用户名
+                        email = 'zcys12173@gmail.com' //你的sonatype注册邮箱
+                    }
+                }
+                // Version control info, if you're using GitHub, follow the format as seen here
+                scm {
+                    //第 5 处
+                    //修改成你的Git地址：
+                    connection = 'scm:git@github.com:zcys12173/KRouter.git'
+                    developerConnection = 'scm:git@github.com:zcys12173/KRouter.git'
+                    //分支地址：
+                    url = 'https://github.com/zcys12173/KRouter/tree/main'
+                }
+
+                withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
+
+                    project.configurations.implementation.allDependencies.each {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                    }
+                }
+            }
+
+        }
+    }
+    repositories {
+        // The repository to publish to, Sonatype/MavenCentral
+        maven {
+            //第 6
+            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            // The username and password we've fetched earlier
+            credentials {
+                username ossrhUsername
+                password ossrhPassword
+            }
+        }
+    }
+}
+
+// signing, this need key, secret, we put it into gradle.properties
+signing {
+    sign publishing.publications.router
+}
+
+afterEvaluate {
+    Task aarGenerateTask = project.tasks.findByName("assembleRelease")
+
+    if (aarGenerateTask) {
+        project.tasks.findAll {
+            if(it.getGroup()== "publishing" && it.name.startsWith("publish")){
+//                println("----publishTask: ${it.name}")
+                it.dependsOn(aarGenerateTask)
+            }
+        }
+    }
+
+}

@@ -1,24 +1,25 @@
 buildscript {
     apply from :'./config.gradle'
     repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
+        mavenLocal()
         google()
         mavenCentral()
         gradlePluginPortal()
+
     }
 
     dependencies {
         classpath "com.android.tools.build:gradle:$agpVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "com.gradle.publish:plugin-publish-plugin:1.2.0"
+        classpath "io.github.zcys12173.plugins:plugin-router:1.0.0-pre"
     }
 }
 
 allprojects {
     repositories {
         google()
+        mavenLocal()
         mavenCentral()
     }
 }
