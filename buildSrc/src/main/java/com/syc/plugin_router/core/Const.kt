@@ -2,7 +2,7 @@ package com.syc.plugin_router.core
 
 import org.objectweb.asm.Opcodes
 
-const val API_VERSION = Opcodes.ASM5
+const val API_VERSION = Opcodes.ASM6
 
 const val GENERATE_TO_CLASS_NAME = "com/syc/router/KRouter"
 
