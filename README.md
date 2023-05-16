@@ -7,10 +7,19 @@
 AGP7.4+  
 
 ```kotlin
-plugins {
-  id("io.github.zcys12173.plugin_router") version "1.0.0-beta"
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "io.github.zcys12173.plugins:plugin-router-7-4:1.0.0-beta"
+  }
 }
-```
+
+apply plugin: "io.github.zcys12173.plugin_router"
+```  
 
 AGP低版本  
 
