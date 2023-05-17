@@ -7,7 +7,7 @@ pluginBundle {
     vcsUrl = 'https://github.com/zcys12173/KRouter.git'
     tags = ['router', 'KRouter']
 }
-version = '1.0.0-beta'
+version = '1.0.0-pre'
 group = 'io.github.zcys12173.plugins'
 
 gradlePlugin {
