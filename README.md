@@ -4,7 +4,7 @@
 
 #### 引用KRouter自动注册插件  
 
-AGP7.4+  
+`AGP7.4+`  
 
 ```kotlin
 buildscript {
@@ -21,7 +21,7 @@ buildscript {
 apply plugin: "io.github.zcys12173.plugin_router"
 ```  
 
-AGP7.0之前的版本
+`AGP7.0`之前的版本
 
 ```kotlin
 //  project/build.gradle
@@ -42,19 +42,22 @@ apply plugin: "io.github.zcys12173.plugin_router_4_2"
 
 #### 引用KRouter Api库
 
+* `project/build.gradle`中增加`Maven`中央仓库  
 ```gradle
-// project/build.gradle中增加Maven中央仓库  
-
- repositories { mavenCentral() }  
+ repositories {
+    mavenCentral()
+   }  
+ ```
  
-// module/build.gradle增加依赖  
+* `module/build.gradle`增加依赖    
 
+ ```gradle
 implementation 'io.github.zcys12173:KRouter:1.0.0-pre'  
 
 ```
 
 ## 初始化 
-`KRouter.install()`  
+`KRouter.install()` 
 
 ```kotlin
 class MyApplication:Application() {  
@@ -66,7 +69,7 @@ class MyApplication:Application() {
 ```
 
 ## 页面跳转
-#### 注册Activity
+#### 注册`Activity`
 ```kotlin
 @RouterPage(MAIN_ACTIVITY_PATH)
 class MainActivity : Activity() {...}   
@@ -80,13 +83,13 @@ KRouter.asNavigator(this).path(SECOND_ACTIVITY_PATH).requestCode(1001).withStrin
 
 #### 参数接收  
 
-跳转的参数都是通过intent.putExtras方式传递的，目标页面可通过getIntent.getXXExtra("xx")方式接收  
+跳转的参数都是通过`intent.putExtras`方式传递的，目标页面可通过`getIntent.getXXExtra("xx")`方式接收  
 
 
 ## Service调用
 #### 注册Service  
-
-  ServiceMethod标记的函数的入参仅支持下面列举出的几种，支持参数为可空（如果不可空，调用的时候必须传递） 
+*  使用`@RouterService`标记`Service`的类
+*  使用`@ServiceMethod`标记函数，入参仅支持下面列举出的几种，支持参数为可空（如果不可空，调用的时候必须传递） 
 
 ```kotlin
 @RouterService("AppService")
