@@ -1,12 +1,6 @@
 pluginManagement {
+    includeBuild('../KRouterPlugin')
     repositories {
-        maven{
-            url uri('./repo')
-        }
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-//        mavenLocal()
         google()
         mavenCentral()
         gradlePluginPortal()
@@ -20,7 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "KRouter"
 include ':app'
-include ':lib-router'
-include ':plugin-router-7-4'
-project(':plugin-router-7-4').projectDir = new File("plugin-router")
+include ':router-api'
 include ':module-business'
