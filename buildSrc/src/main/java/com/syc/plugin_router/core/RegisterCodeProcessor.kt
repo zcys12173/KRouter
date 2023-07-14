@@ -30,6 +30,5 @@ object RegisterCodeProcessor {
             outputStream.closeEntry()
         }
         file.close()
-        outputStream.close()
     }
 }

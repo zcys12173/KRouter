@@ -30,10 +30,17 @@ abstract class TransformTask : DefaultTask() {
     @TaskAction
     fun taskAction() {
         clearCache()
+        val needCreateTempOutputFile = allJars.get().contains(output.get())
+        val outputFile = output.get().asFile
+        val finalOutputFile = if(needCreateTempOutputFile){
+            File(outputFile.parent,"${outputFile.name}_temp")
+        }else{
+            outputFile
+        }
         val jarOutput = JarOutputStream(
             BufferedOutputStream(
                 FileOutputStream(
-                    output.get().asFile
+                    finalOutputFile
                 )
             )
         )
@@ -74,6 +81,10 @@ abstract class TransformTask : DefaultTask() {
             }
         }
         RegisterCodeProcessor.process(jarOutput)
+        jarOutput.close()
+        if(needCreateTempOutputFile){
+            finalOutputFile.copyTo(outputFile,overwrite = true)
+        }
     }
 
 }
