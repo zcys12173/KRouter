@@ -14,7 +14,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "io.github.zcys12173.plugins:plugin-router-7-4:1.0.0-pre-1"
+    classpath "io.github.zcys12173.plugins:plugin-router-7-4:1.0.0-pre-2"
   }
 }
 
