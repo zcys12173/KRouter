@@ -53,10 +53,14 @@ abstract class TransformTask : DefaultTask() {
                         //这里不做任何处理，等待最后插入扫码到的所有结果
                         RegisterCodeProcessor.jarFile = file.asFile
                     } else {
-                        jarOutput.putNextEntry(JarEntry(jarEntry.name))
-                        jarFile.scanJarInput(jarEntry)
-                        jarFile.getInputStream(jarEntry).use {
-                            it.copyTo(jarOutput)
+                        try{
+                            jarOutput.putNextEntry(JarEntry(jarEntry.name))
+                            jarFile.scanJarInput(jarEntry)
+                            jarFile.getInputStream(jarEntry).use {
+                                it.copyTo(jarOutput)
+                            }
+                        }catch (e:Exception){
+                            print("catch exception:${e.message}")
                         }
                     }
                 }
